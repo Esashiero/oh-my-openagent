@@ -1,12 +1,32 @@
-import { z } from "zod"
-import { FallbackModelsSchema } from "./fallback-models"
-import { AgentPermissionSchema } from "./internal/permission"
+import { z } from "zod";
+import { FallbackModelsSchema } from "./fallback-models";
+import { AgentPermissionSchema } from "./internal/permission";
+
+/** Configuration for multi-model consensus agents */
+export const ConsensusConfigSchema = z.object({
+  /** Multiple models to run in parallel for consensus */
+  models: z.array(z.string()).optional(),
+  /** Execution mode: parallel (all at once), sequential (one after another), reflection (with critique) */
+  mode: z.enum(["parallel", "sequential", "reflection"]).optional(),
+  /** Reflection phase configuration */
+  reflection: z
+    .object({
+      enabled: z.boolean().optional(),
+      rounds: z.number().optional(),
+      summarize_differences: z.boolean().optional(),
+    })
+    .optional(),
+  /** How to aggregate results: majority voting, consensus, or synthesis */
+  aggregation: z.enum(["majority", "consensus", "synthesis"]).optional(),
+});
 
 export const AgentOverrideConfigSchema = z.object({
   /** @deprecated Use `category` instead. Model is inherited from category defaults. */
   model: z.string().optional(),
   fallback_models: FallbackModelsSchema.optional(),
   variant: z.string().optional(),
+  /** Multi-model consensus configuration */
+  consensus: ConsensusConfigSchema.optional(),
   /** Category name to inherit model and other settings from CategoryConfig */
   category: z.string().optional(),
   /** Skill names to inject into agent prompt */
@@ -53,7 +73,7 @@ export const AgentOverrideConfigSchema = z.object({
       variant: z.string().optional(),
     })
     .optional(),
-})
+});
 
 export const AgentOverridesSchema = z.object({
   build: AgentOverrideConfigSchema.optional(),
@@ -72,7 +92,8 @@ export const AgentOverridesSchema = z.object({
   explore: AgentOverrideConfigSchema.optional(),
   "multimodal-looker": AgentOverrideConfigSchema.optional(),
   atlas: AgentOverrideConfigSchema.optional(),
-})
+});
 
-export type AgentOverrideConfig = z.infer<typeof AgentOverrideConfigSchema>
-export type AgentOverrides = z.infer<typeof AgentOverridesSchema>
+export type AgentOverrideConfig = z.infer<typeof AgentOverrideConfigSchema>;
+export type AgentOverrides = z.infer<typeof AgentOverridesSchema>;
+export type ConsensusConfig = z.infer<typeof ConsensusConfigSchema>;

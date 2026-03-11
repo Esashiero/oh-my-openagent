@@ -98,6 +98,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -316,6 +359,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"
@@ -536,6 +622,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -754,6 +883,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"
@@ -977,6 +1149,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -1195,6 +1410,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"
@@ -1415,6 +1673,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -1633,6 +1934,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"
@@ -1853,6 +2197,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -2071,6 +2458,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"
@@ -2291,6 +2721,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -2509,6 +2982,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"
@@ -2729,6 +3245,49 @@
             "variant": {
               "type": "string"
             },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
             "category": {
               "type": "string"
             },
@@ -2947,6 +3506,49 @@
             },
             "variant": {
               "type": "string"
+            },
+            "consensus": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "parallel",
+                    "sequential",
+                    "reflection"
+                  ]
+                },
+                "reflection": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "rounds": {
+                      "type": "number"
+                    },
+                    "summarize_differences": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": [
+                    "majority",
+                    "consensus",
+                    "synthesis"
+                  ]
+                }
+              },
+              "additionalProperties": false
             },
             "category": {
               "type": "string"

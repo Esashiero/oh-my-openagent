@@ -129,3 +129,17 @@ export type AgentOverrideConfig = Partial<AgentConfig> & {
 export type AgentOverrides = Partial<
   Record<OverridableAgentName, AgentOverrideConfig>
 >;
+
+/**
+ * Multi-model consensus agent configuration
+ */
+export interface MultiModelAgentConfig {
+	models: string[];
+	mode: "parallel" | "sequential" | "reflection";
+	reflection?: {
+		enabled: boolean;
+		rounds: number;
+		summarize_differences: boolean;
+	};
+	aggregation: "majority" | "consensus" | "synthesis";
+}

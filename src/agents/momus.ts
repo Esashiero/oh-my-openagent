@@ -344,3 +344,58 @@ export const momusPromptMetadata: AgentPromptMetadata = {
   ],
   keyTrigger: "Work plan created → invoke Momus for review before execution",
 };
+
+/**
+ * Reflection prompt for multi-model Momus consensus
+ */
+const MOMUS_REFLECTION_PROMPT = `## Plan Review - Reflection Phase
+
+You previously reviewed this plan and gave your analysis. Now you will see what other AI models found.
+
+### Your Original Analysis:
+{original_analysis}
+
+### Other Models' Analyses:
+{other_analyses}
+
+## Your Task:
+1. Read the other models' analyses carefully
+2. Identify points where you AGREE with their findings
+3. Identify points where you DISAGREE and explain why
+4. Note any insights they had that you missed
+5. Note any gaps in their analysis that you caught
+6. Would you change your final verdict? If so, how?
+
+## Output Format:
+**Agreement:** (list points you agree on)
+**Disagreement:** (list points you disagree on, with reasoning)
+**New Insights:** (what you learned from others)
+**Revised Verdict:** [OKAY/REJECT] - only if different from original
+
+Remember: Your goal is not to win an argument, but to find the best review of this plan.`;
+
+
+/**
+ * Create multi-model Momus agent configurations
+ * Returns an array of agent configs for parallel execution
+ */
+export function createMultiModelMomus(
+	models: string[],
+	options?: {
+		mode?: "parallel" | "sequential" | "reflection";
+		reflectionRounds?: number;
+		aggregation?: "majority" | "consensus" | "synthesis";
+	}
+): AgentConfig[] {
+	const configs = models.map((model) => createMomusAgent(model));
+
+	// Mark each config as part of a consensus review
+	return configs.map((config) => ({
+		...config,
+		variant: `consensus-${options?.mode || "reflection"}-${options?.aggregation || "synthesis"}`,
+	})) as AgentConfig[];
+}
+
+/** Export reflection prompt for use in consensus executor */
+export { MOMUS_REFLECTION_PROMPT };
+

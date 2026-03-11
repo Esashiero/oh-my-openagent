@@ -225,15 +225,22 @@ export function createDelegateTask(options: DelegateTaskToolOptions): ToolDefini
           })
           return executeUnstableAgentTask(args, ctx, options, parentContext, agentToUse, categoryModel, systemContent, actualModel)
         }
-      } else {
-        const resolution = await resolveSubagentExecution(args, options, parentContext.agent, categoryExamples)
-        if (resolution.error) {
-          return resolution.error
-        }
-        agentToUse = resolution.agentToUse
-        categoryModel = resolution.categoryModel
-        fallbackChain = resolution.fallbackChain
-      }
+} else {
+  const resolution = await resolveSubagentExecution(args, options, parentContext.agent, categoryExamples)
+  if (resolution.error) {
+    return resolution.error
+  }
+  agentToUse = resolution.agentToUse
+  categoryModel = resolution.categoryModel
+  fallbackChain = resolution.fallbackChain
+
+  // Handle consensus config - spawn multiple models in parallel
+  if (resolution.consensusConfig && resolution.consensusConfig.models && resolution.consensusConfig.models.length > 0) {
+    log("[task] Running consensus execution with models", { models: resolution.consensusConfig.models })
+    const { executeConsensusTask } = await import("./consensus-task")
+    return executeConsensusTask(args, ctx, options, parentContext, agentToUse, resolution.consensusConfig, skillContent, skillContents, availableCategories, availableSkills)
+  }
+}
 
       const systemContent = buildSystemContent({
         skillContent,

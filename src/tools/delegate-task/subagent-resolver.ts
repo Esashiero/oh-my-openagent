@@ -1,5 +1,6 @@
 import type { DelegateTaskArgs } from "./types"
 import type { ExecutorContext } from "./executor-types"
+import type { ConsensusConfig } from "../../config/schema/agent-overrides"
 import { isPlanFamily } from "./constants"
 import { SISYPHUS_JUNIOR_AGENT } from "./sisyphus-junior-agent"
 import { normalizeModelFormat } from "../../shared/model-format-normalizer"
@@ -13,12 +14,20 @@ import { getAvailableModelsForDelegateTask } from "./available-models"
 import type { FallbackEntry } from "../../shared/model-requirements"
 import { resolveModelForDelegateTask } from "./model-selection"
 
+export interface SubagentResolutionResult {
+  agentToUse: string
+  categoryModel: { providerID: string; modelID: string; variant?: string } | undefined
+  fallbackChain?: FallbackEntry[]
+  consensusConfig?: ConsensusConfig
+  error?: string
+}
+
 export async function resolveSubagentExecution(
   args: DelegateTaskArgs,
   executorCtx: ExecutorContext,
   parentAgent: string | undefined,
   categoryExamples: string
-): Promise<{ agentToUse: string; categoryModel: { providerID: string; modelID: string; variant?: string } | undefined; fallbackChain?: FallbackEntry[]; error?: string }> {
+): Promise<SubagentResolutionResult> {
   const { client, agentOverrides, userCategories } = executorCtx
 
   if (!args.subagent_type?.trim()) {
@@ -41,7 +50,7 @@ Sisyphus-Junior is spawned automatically when you specify a category. Pick the a
     return {
       agentToUse: "",
       categoryModel: undefined,
-    error: `You are a plan-family agent (plan/prometheus). You cannot delegate to other plan-family agents via task.
+      error: `You are a plan-family agent (plan/prometheus). You cannot delegate to other plan-family agents via task.
 
 Create the work plan directly - that's your job as the planning agent.`,
     }
@@ -50,6 +59,7 @@ Create the work plan directly - that's your job as the planning agent.`,
   let agentToUse = agentName
   let categoryModel: { providerID: string; modelID: string; variant?: string } | undefined
   let fallbackChain: FallbackEntry[] | undefined = undefined
+  let consensusConfig: ConsensusConfig | undefined = undefined
 
   try {
     const agentsResult = await client.app.agents()
@@ -67,7 +77,7 @@ Create the work plan directly - that's your job as the planning agent.`,
     const resolvedDisplayName = getAgentDisplayName(agentToUse)
     const matchedAgent = callableAgents.find(
       (agent) => agent.name.toLowerCase() === agentToUse.toLowerCase()
-        || agent.name.toLowerCase() === resolvedDisplayName.toLowerCase()
+      || agent.name.toLowerCase() === resolvedDisplayName.toLowerCase()
     )
     if (!matchedAgent) {
       const isPrimaryAgent = agents
@@ -79,7 +89,7 @@ Create the work plan directly - that's your job as the planning agent.`,
         return {
           agentToUse: "",
           categoryModel: undefined,
-    error: `Cannot call primary agent "${isPrimaryAgent.name}" via task. Primary agents are top-level orchestrators.`,
+          error: `Cannot call primary agent "${isPrimaryAgent.name}" via task. Primary agents are top-level orchestrators.`,
         }
       }
 
@@ -99,6 +109,10 @@ Create the work plan directly - that's your job as the planning agent.`,
     const agentConfigKey = getAgentConfigKey(agentToUse)
     const agentOverride = agentOverrides?.[agentConfigKey as keyof typeof agentOverrides]
       ?? (agentOverrides ? Object.entries(agentOverrides).find(([key]) => key.toLowerCase() === agentConfigKey)?.[1] : undefined)
+
+    // Extract consensus config if present
+    consensusConfig = agentOverride?.consensus
+
     const agentRequirement = AGENT_MODEL_REQUIREMENTS[agentConfigKey]
     const normalizedAgentFallbackModels = normalizeFallbackModels(
       agentOverride?.fallback_models
@@ -163,5 +177,5 @@ Create the work plan directly - that's your job as the planning agent.`,
     }
   }
 
-  return { agentToUse, categoryModel, fallbackChain }
+  return { agentToUse, categoryModel, fallbackChain, consensusConfig }
 }
