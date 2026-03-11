@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "oh_my_openagent",
+  "project_id": "3ad6f472-7722-4e1a-b05f-9e31fbebba7b"
+}
