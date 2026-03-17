@@ -35,7 +35,8 @@ export { createAutoSlashCommandHook } from "./auto-slash-command";
 export { createEditErrorRecoveryHook } from "./edit-error-recovery";
 
 export { createPrometheusMdOnlyHook } from "./prometheus-md-only";
-export { createSisyphusJuniorNotepadHook } from "./sisyphus-junior-notepad";
+export { createNotepadHook } from "./notepad/hook";
+export { createProjectMemoryHook } from "./project-memory/hook";
 export { createTaskResumeInfoHook } from "./task-resume-info";
 export { createStartWorkHook } from "./start-work";
 export { createAtlasHook } from "./atlas";

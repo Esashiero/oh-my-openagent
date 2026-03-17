@@ -45,6 +45,8 @@ export {
 } from "./task"
 export { createHashlineEditTool } from "./hashline-edit"
 
+export { notepadTools } from "./notepad"
+
 export function createBackgroundTools(manager: BackgroundManager, client: OpencodeClient): Record<string, ToolDefinition> {
   const outputManager: BackgroundOutputManager = manager
   const cancelClient: BackgroundCancelClient = client

@@ -25,6 +25,7 @@ import {
   createTaskList,
   createTaskUpdateTool,
   createHashlineEditTool,
+  notepadTools,
 } from "../tools"
 import { getMainSessionID } from "../features/claude-code-session-state"
 import { filterDisabledTools } from "../shared/disabled-tools"
@@ -144,6 +145,7 @@ export function createToolRegistry(args: {
     interactive_bash,
     ...taskToolsRecord,
     ...hashlineToolsRecord,
+    ...notepadTools,
   }
 
   for (const toolDefinition of Object.values(allTools)) {

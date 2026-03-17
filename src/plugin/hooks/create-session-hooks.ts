@@ -19,7 +19,8 @@ import {
   createTaskResumeInfoHook,
   createStartWorkHook,
   createPrometheusMdOnlyHook,
-  createSisyphusJuniorNotepadHook,
+  createNotepadHook,
+  createProjectMemoryHook,
   createNoSisyphusGptHook,
   createNoHephaestusNonGptHook,
   createQuestionLabelTruncatorHook,
@@ -53,7 +54,8 @@ export type SessionHooks = {
   delegateTaskRetry: ReturnType<typeof createDelegateTaskRetryHook> | null
   startWork: ReturnType<typeof createStartWorkHook> | null
   prometheusMdOnly: ReturnType<typeof createPrometheusMdOnlyHook> | null
-  sisyphusJuniorNotepad: ReturnType<typeof createSisyphusJuniorNotepadHook> | null
+  notepad: ReturnType<typeof createNotepadHook> | null
+  projectMemory: ReturnType<typeof createProjectMemoryHook> | null
   noSisyphusGpt: ReturnType<typeof createNoSisyphusGptHook> | null
   noHephaestusNonGpt: ReturnType<typeof createNoHephaestusNonGptHook> | null
   questionLabelTruncator: ReturnType<typeof createQuestionLabelTruncatorHook> | null
@@ -223,8 +225,12 @@ export function createSessionHooks(args: {
     ? safeHook("prometheus-md-only", () => createPrometheusMdOnlyHook(ctx))
     : null
 
-  const sisyphusJuniorNotepad = isHookEnabled("sisyphus-junior-notepad")
-    ? safeHook("sisyphus-junior-notepad", () => createSisyphusJuniorNotepadHook(ctx))
+  const notepad = isHookEnabled("notepad")
+    ? safeHook("notepad", () => createNotepadHook(ctx))
+    : null
+
+  const projectMemory = isHookEnabled("project-memory")
+    ? safeHook("project-memory", () => createProjectMemoryHook(ctx))
     : null
 
   const noSisyphusGpt = isHookEnabled("no-sisyphus-gpt")
@@ -278,7 +284,8 @@ export function createSessionHooks(args: {
     delegateTaskRetry,
     startWork,
     prometheusMdOnly,
-    sisyphusJuniorNotepad,
+    notepad,
+    projectMemory,
     noSisyphusGpt,
     noHephaestusNonGpt,
     questionLabelTruncator,

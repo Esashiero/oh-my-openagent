@@ -10,6 +10,9 @@ import { finalizeTrackedAssistantMessage, shouldTreatAssistantPartAsOutput, trac
 import { resolveSessionID } from "./session-id"
 import type { CompactionContextClient, CompactionContextInjector } from "./types"
 import { createRecoveryLogic } from "./recovery"
+import { getPriorityContext } from "../../hooks/notepad"
+import { loadMemory } from "../../hooks/project-memory/storage"
+import { formatForContext } from "../../hooks/project-memory/formatter"
 
 export function createCompactionContextInjector(options?: {
   ctx?: CompactionContextClient
@@ -54,13 +57,38 @@ export function createCompactionContextInjector(options?: {
     })
   }
 
-  const inject = (sessionID?: string): string => {
+  const inject = (sessionID?: string, workingDirectory?: string): string => {
     let prompt = COMPACTION_CONTEXT_PROMPT
 
     if (backgroundManager && sessionID) {
       const history = backgroundManager.taskHistory.formatForCompaction(sessionID)
       if (history) {
         prompt += `\n### Active/Recent Delegated Sessions\n${history}\n`
+      }
+    }
+
+    // Add notepad priority context if available
+    if (workingDirectory) {
+      try {
+        const priorityResult = getPriorityContext(workingDirectory)
+        if (priorityResult.content && priorityResult.content.trim().length > 0) {
+          prompt += `\n### Notepad Priority Context\n<notepad-priority>\n${priorityResult.content}\n</notepad-priority>\n`
+        }
+      } catch {
+        // Notepad read failed - continue without it
+      }
+
+      // Add project memory context if available
+      try {
+        const memoryData = loadMemory(workingDirectory)
+        if (memoryData && (memoryData.techStack.language || memoryData.frameworks.length > 0)) {
+          const memoryContext = formatForContext(memoryData)
+          if (memoryContext.trim().length > 0) {
+            prompt += `\n### Project Memory\n${memoryContext}\n`
+          }
+        }
+      } catch {
+        // Project memory read failed - continue without it
       }
     }
 

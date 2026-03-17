@@ -8,6 +8,8 @@ export type ContextSourceType =
   | "directory-agents"
   | "directory-readme"
   | "custom"
+  | "notepad"
+  | "project-memory"
 
 /**
  * Priority levels for context ordering
